@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+    <meta charset="utf-8">
+    <title>Isikukoodi näide</title>
+    <style>
+        body {
+            margin: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Isikukoodi näide</h1>
+    <p>Palun sisesta isikukoodi</p>
+    Arv: <input type="text" id="ikood"><br><br> <!-- Erilise jälgimise all-->
+    <button onclick="minuFunktsioon()">Sisesta</button><br><br>
+    <p id="viga"></p>
+    <div id="tulemused"></div>
+    <script>
+        function minuFunktsioon() {
+            let ik;
+            ik = document.getElementById("ikood").value;
+
+            let pikkus = ik.length;
+            let numbers = /^[0-9]+$/; //regulaaravaldis, mis kontrollib, kas string koosneb ainult numbritest 0-9 tingimusega, et avaldist kontrollitakse kuni esimese reavahetusmärgini
+            //Veapüünis
+            if (pikkus !== 11) {
+                document.getElementById("viga").innerHTML = "Isikukood pole õige pikkusega!";
+            } else if (!ik.match(numbers)) {
+                document.getElementById("viga").innerHTML = "Isikukood peab koosnema ainult numbritest!";
+            } else {
+                //Andmed sobivad
+                document.getElementById("viga").innerHTML = "Isikukood on korrektne!";
+                //Mees või naine
+                switch (ik[0]) {
+                    case "1":
+                    case "3":
+                    case "5":
+                    case "7":
+                        document.getElementById("tulemused").innerHTML = "<p>sugu:MEES</p>";
+                        break;
+                    case "2":
+                    case "4":
+                    case "6":
+                    case "8":
+                        document.getElementById("tulemused").innerHTML = "<p>sugu:NAINE</p>";
+                        break;
+                    default:
+                        document.getElementById("tulemused").innerHTML = "<p>Sugu pole võimalik esimese numbri järgi tuvastada...</p>";
+
+
+                }
+                //Sünnipäeva moodustamine   
+                document.querySelector("#tulemused").appendChild(document.createElement('p')).textContent = "Oled sündinud " + ik.substring(5, 7) + '.' + ik.substring(3, 5) + '.' + ik.substring(1, 3);
+            }
+
+
+
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
